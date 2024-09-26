@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="pingpong_match_page" name="Ping Pong Match Page">
+        <t t-call="website.layout">
+            <div class="bc_sport_match">
+                <div id="match-type" style="display:none;">
+                    <t t-out="match_type"/>
+                </div>
+                <div class="container mt-2 mt-md-5 px-3 px-sm-0">
+                    <t t-if="match_type == '1v1'">
+                        <t t-call="bc_sport.pingpong_match_simple"/>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="pingpong_match_simple">
+        <form class="current-match row justify-content-around">
+            <div class="player-1 col-5 col-md-4 p-0 text-center">
+                <h1 class="top-title fw-bold fs-1 d-none d-md-block" style="letter-spacing: 5px;" id="name-player-1">PLAYER 1</h1>
+                <input type="text" class="score-player-1 form-control fs-1 text-center mb-2 border-0 d-block d-md-none" value="0"/>
+                <div class="avatar rounded overflow-hidden shadow">
+                    <div class="w-100" id="avatar-player-1" t-attf-style="height: 300px; background-image: url('/bc_sport/static/src/img/default_avatar.png'); background-size: cover; background-position: center;"></div>
+                </div>
+                <div class="name my-3">
+                    <select name="Player 1" id="player-1" class="form-control shadow">
+                        <option value="False">Select a player</option>
+                        <t t-foreach="players" t-as="player">
+                            <option t-att-value="player.id" t-att-data-avatar="player.avatar">
+                                <t t-out="player.name"/>
+                            </option>
+                        </t>
+                    </select>
+                </div>
+                <div class="buttons d-flex justify-content-around gap-2 gap-lg-5">
+                    <button class="btn btn-danger btn-lg w-50 px-1 rounded-3 minus btn-score">-</button>
+                    <button class="btn btn-success btn-lg w-50 px-1 rounded-3 plus btn-score">+</button>
+                </div>
+            </div>
+            <div class="score col-3 p-0 text-center d-none d-md-block">
+                <div class="top d-flex justify-content-around align-items-center h-100 g-0 gap-sm-2">
+                    <input type="text" class="score-player-1 form-control fs-1 w-50 w-lg-50 text-center" value="0"/>
+                    <span class="separator fs-1 d-none d-lg-block"> - </span>
+                    <input type="text" class="score-player-2 form-control fs-1 w-50 w-lg-50 text-center" value="0"/>
+                </div>
+                <div class="bottom">
+                    <div class="btn btn-primary btn-lg rounded-3 end-game">
+                        END GAME
+                    </div>
+                </div>
+            </div>
+            <div class="player-2 col-5 col-md-4 p-0 text-center">
+                <div class="avatar">
+                    <img class="w-100" id="avatar-player-2" alt="Player 2" t-att-src="'/bc_sport/static/src/img/default_avatar.png'"/>
+                </div>
+                <div class="name">
+                    <select name="Player 2" id="player-2" class="form-control">
+                        <option value="False">Select a player</option>
+                        <t t-foreach="players" t-as="player">
+                            <option t-att-value="player.id" t-att-data-avatar="player.avatar">
+                                <t t-out="player.name"/>
+                            </option>
+                        </t>
+                    </select>
+                </div>
+                <div class="buttons d-flex justify-content-around">
+                    <button class="btn btn-danger minus">-</button>
+                    <button class="btn btn-success plus">+</button>
+                </div>
+            </div>
+        </form>
+    </template>
+</odoo>

@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+bc_sport.access_bc_sport_match,access_bc_sport_match,bc_sport.model_bc_sport_match,base.group_user,1,1,1,1
+bc_sport.access_bc_sport_player,access_bc_sport_player,bc_sport.model_bc_sport_player,base.group_user,1,1,1,1

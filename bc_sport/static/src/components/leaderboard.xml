@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="bc_sport.Leaderboard">
+        <div class="vh-100 overflow-auto m-2">
+            <!-- <h1>BC Sport</h1>
+            <t t-foreach="this.players" t-as="player" t-key="player.id">
+                <div class="player">
+                    <img t-attf-src="data:image/png;base64,{{player.avatar}}" t-att-alt="player.name" />
+                    <strong>
+                        <t t-esc="player.name" />
+                    </strong>
+                    <span class="matches">
+                        <t t-esc="player.match_count" />
+                        <t t-if="player.match_count == 1"> match</t>
+                        <t t-if="player.match_count != 1"> matches</t>
+                    </span>
+                </div>
+            </t> -->
+        </div>
+    </t>
+</templates>

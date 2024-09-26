@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- VIEWS -->
+    <!-- FORM -->
+    <record id="bc_sport_match_form" model="ir.ui.view">
+        <field name="name">bc_sport.match.form</field>
+        <field name="model">bc_sport.match</field>
+        <field name="arch" type="xml">
+            <form string="Match">
+                <sheet>
+                    <group>
+                        <group>
+                            <div colspan="2" class="d-flex my-3">
+                                <div class="rounded-3 overflow-hidden">
+                                    <field name="player_1_avatar" widget="image" width="256px" class="m-0" />
+                                </div>
+                            </div>
+                            <field name="player_1" />
+                            <field name="score_1" />
+                        </group>
+                        <group>
+                            <div colspan="2" class="d-flex my-3">
+                                <div class="rounded-3 overflow-hidden">
+                                    <field name="player_2_avatar" widget="image" width="256px" class="m-0" />
+                                </div>
+                            </div>
+                            <field name="player_2" />
+                            <field name="score_2" />
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- TREE -->
+    <record id="bc_sport_match_tree" model="ir.ui.view">
+        <field name="name">bc_sport.match.tree</field>
+        <field name="model">bc_sport.match</field>
+        <field name="arch" type="xml">
+            <tree string="Matches">
+                <field name="date" />
+                <field name="player_1" />
+                <field name="score_1" />
+                <field name="score_2" />
+                <field name="player_2" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- KANBAN -->
+    <record id="bc_sport_match_kanban" model="ir.ui.view">
+        <field name="name">bc_sport.match.kanban</field>
+        <field name="model">bc_sport.match</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_kanban_record d-flex flex-column rounded-3">
+                            <t t-set="avatar_image_1" t-value="kanban_image('bc_sport.match', 'player_1_avatar', record.id.raw_value)" />
+                            <t t-set="avatar_image_2" t-value="kanban_image('bc_sport.match', 'player_2_avatar', record.id.raw_value)" />
+
+                            <div class="top-date d-flex border border-0">
+                                <div class="date text-center text-muted fst-italic w-100">
+                                    <field name="date" />
+                                </div>
+                            </div>
+                            <div class="top d-flex border border-0">
+                                <div class="player-1 text-center fs-2" style="width: 50%;">
+                                    <img t-attf-src="#{avatar_image_1}" class="rounded-3" width="128px" alt="Player 1" />
+                                    <field name="player_1" />
+                                </div>
+                                <div class="player-2 text-center fs-2" style="width: 50%;">
+                                    <img t-attf-src="#{avatar_image_2}" class="rounded-3" width="128px" alt="Player 2" />
+                                    <field name="player_2" />
+                                </div>
+                            </div>
+                            <div class="bottom d-flex justify-content-around border border-0">
+                                <t t-set="score_1_class" t-value="record.score_1.raw_value > record.score_2.raw_value ? 'text-success fw-bold' : 'text-danger'" />
+                                <t t-set="score_2_class" t-value="record.score_2.raw_value > record.score_1.raw_value ? 'text-success fw-bold' : 'text-danger'" />
+                                <div t-attf-class="score-1 text-center fs-2 #{score_1_class}">
+                                    <field name="score_1" />
+                                </div>
+                                <div t-attf-class="score-2 text-center fs-2 #{score_2_class}">
+                                    <field name="score_2" />
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+</odoo>

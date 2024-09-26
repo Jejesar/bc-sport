@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- VIEWS -->
+    <!-- FORM -->
+    <record id="bc_sport_player_form" model="ir.ui.view">
+        <field name="name">bc_sport.player.view.form</field>
+        <field name="model">bc_sport.player</field>
+        <field name="arch" type="xml">
+            <form string="Player">
+                <sheet>
+                    <field name="avatar" widget='image' class="oe_avatar rounded-3 overflow-hidden" />
+                    <div class="oe_title mb-5">
+                        <h1>
+                            <label for="name" class="text-muted" />
+                            <field name="name" placeholder="Player Name" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id" widget="many2one_avatar" />
+                            <field name="rank" />
+                            <field name="match_count" />
+                            <field name="streak" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Matches">
+                            <field name="match_ids" />
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- KANBAN -->
+    <record id="bc_sport_player_kanban" model="ir.ui.view">
+        <field name="name">bc_sport.player.view.kanban</field>
+        <field name="model">bc_sport.player</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_kanban_record_has_image_fill rounded-3 overflow-hidden">
+                            <!-- <div class="o_kanban_image_fill_left d-none d-md-block">
+                                <img t-attf-src="#{avatar_image}" t-att-alt="record.id.value"/>
+                                <img class="o_kanban_image_inner_pic" t-if="record.parent_id.raw_value" t-att-alt="record.parent_id.value" t-att-src="kanban_image('res.partner', 'avatar_128', record.parent_id.raw_value)"/>
+                            </div> -->
+                            <div class="o_kanban_image_fill_left d-none d-md-block o_kanban_image_full">
+                                <img t-att-src="kanban_image('bc_sport.player', 'avatar', record.id.raw_value)" t-att-alt="record.id.value" role="image" />
+                            </div>
+                            <div class="oe_kanban_details">
+                                <strong>
+                                    <field name="name" />
+                                </strong>
+                                <!-- Ratio -->
+                                <div class="matches">
+                                    <span class="text-muted">
+                                        <field name="ratio" />
+                                        <span>% of victory</span>
+                                    </span>
+                                </div>
+                                <!-- Matches won -->
+                                <div class="matches">
+                                    <span class="text-muted">
+                                        <field name="match_won_count" />
+                                        <t t-if="record.match_won_count.raw_value == 1"> won</t>
+                                        <t t-if="record.match_won_count.raw_value != 1"> won</t>
+                                    </span>
+                                </div>
+                                <!-- Matches played -->
+                                <div class="matches">
+                                    <span class="text-muted">
+                                        <field name="match_count" />
+                                        <t t-if="record.match_count.raw_value == 1"> played</t>
+                                        <t t-if="record.match_count.raw_value != 1"> played</t>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
+</odoo>

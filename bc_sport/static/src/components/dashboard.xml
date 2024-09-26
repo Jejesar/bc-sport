@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="bc_sport.Dashboard">
+        <div class="vh-100 overflow-auto bc-sport-dashboard">
+
+            <div class="row m-2">
+                <div class="col-12">
+                    <div class="container my-5">
+                        <div class="p-5 text-center bg-body-tertiary rounded-3">
+                            <h1 class="text-body-emphasis">Dashboard</h1>
+                            <p class="lead">
+                                Welcome to the BC Sport Dashboard. Here you can navigate to the different sections of the application.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col md-6">
+                    <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
+
+                        <div class="col">
+                            <t t-set="bg_image" t-value="'/bc_sport/static/src/img/players.png'"/>
+                            <t t-set="bg_style" t-value="'background-image: linear-gradient(to top, rgba(2,0,36,0.8) 0%, rgba(2,0,36,0.6) 50%, rgba(255,255,255,0) 100%), url(' + bg_image + '); background-size: cover; background-position: center;'"/>
+                            <div class="border border-3 border-primary h-100 overflow-hidden text-bg-dark rounded-3 shadow-lg pointer" t-attf-style="#{bg_style} cursor: pointer;" t-on-click="onClickPlayers">
+                                <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                                    <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold text-white">Players</h3>
+                                    <ul class="d-flex list-unstyled mt-auto">
+                                        <!-- Number of players -->
+                                        <li class="me-3">
+                                            <i class="fa fa-users me-2" aria-hidden="true" />
+                                            <span t-esc="players_count" class="me-1"/>
+                                            <span>players registred</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="mt-3 d-flex justify-content-center">
+                                <!-- TODO: Add a button to create a player -->
+                                <button class="btn btn-primary btn-lg" t-on-click="onClickCreatePlayer">Create a player</button>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <t t-set="bg_image" t-value="'/bc_sport/static/src/img/matches.png'"/>
+                            <t t-set="bg_style" t-value="'background-image: linear-gradient(to top, rgba(2,0,36,0.8) 0%, rgba(2,0,36,0.6) 50%, rgba(255,255,255,0) 100%), url(' + bg_image + '); background-size: cover; background-position: center;'"/>
+                            <div class="border border-3 border-primary h-100 overflow-hidden text-bg-dark rounded-3 shadow-lg pointer" t-attf-style="#{bg_style} cursor: pointer;" t-on-click="onClickmatches">
+                                <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                                    <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold text-white">Matches</h3>
+                                    <ul class="d-flex list-unstyled mt-auto">
+                                        <li class="me-3">
+                                            <i class="fa fa-book me-2" aria-hidden="true" />
+                                            <span t-esc="matches_count" class="me-1"/>
+                                            <span>matches played</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="mt-3 d-flex justify-content-center gap-3">
+                                <button class="btn btn-primary btn-lg" t-on-click="() => this.onClickNewMatch('1v1')">New 1v1</button>
+                                <button class="btn btn-primary btn-lg" t-on-click="() => this.onClickNewMatch('2v2')">New 2v2</button>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <t t-set="bg_image" t-value="'/bc_sport/static/src/img/leaderboard.png'"/>
+                            <t t-set="bg_style" t-value="'background-image: linear-gradient(to top, rgba(2,0,36,0.8) 0%, rgba(2,0,36,0.6) 50%, rgba(255,255,255,0) 100%), url(' + bg_image + '); background-size: cover; background-position: center;'"/>
+                            <div class="border border-3 border-primary h-100 overflow-hidden text-bg-dark rounded-3 shadow-lg pointer" t-attf-style="#{bg_style} cursor: pointer;" t-on-click="onClickLeaderboard">
+                                <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                                    <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold text-white">Leaderboard</h3>
+                                    <ul class="d-flex list-unstyled mt-auto">
+                                        <li class="me-3">
+                                            <i class="fa fa-trophy me-2" aria-hidden="true" />
+                                            <span>Click to see leadeboard</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>
