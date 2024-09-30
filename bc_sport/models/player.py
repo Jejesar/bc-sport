@@ -116,7 +116,7 @@ class Player(models.Model):
     rank = fields.Selection(
         selection=RANKS,
         string="Rank",
-        default="1_tourist",
+        default="10_tourist",
         readonly=True,
         compute="_compute_rank",
     )

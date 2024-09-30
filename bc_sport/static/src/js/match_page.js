@@ -7,8 +7,8 @@ publicWidget.registry.BcSportMatch = publicWidget.Widget.extend({
     selector: ".bc_sport_match",
     events: {
         "change #player-1,#player-2": "onChangePlayer",
-        "focus input.score-player-1": "onFocusInput",
-        "keypress input.score-player-1": "onChangeScore",
+        "focus input.score-player-1,input.score-player-2": "onFocusInput",
+        "keypress input.score-player-1,input.score-player-2": "onChangeScore",
         // Press button
         "click .btn-score": "onChangeScore",
     },
@@ -25,6 +25,9 @@ publicWidget.registry.BcSportMatch = publicWidget.Widget.extend({
      */
     start() {
         document.getElementById("footer").style.display = "none";
+
+        this.player1Select = this.$("#player-1");
+        this.player2Select = this.$("#player-2");
     },
 
     /**
@@ -34,7 +37,7 @@ publicWidget.registry.BcSportMatch = publicWidget.Widget.extend({
     async onChangePlayer(ev) {
         console.log("onChangePlayer", ev);
 
-        const player1 = this.$("#player-1").find(":selected");
+        const player1 = this.player1Select.find(":selected");
         const player1avatar = this._getAvatarUrl(player1.data("avatar"));
         const player2 = this.$("#player-2");
         const player2avatar = this._getAvatarUrl(player2.data("avatar"));
@@ -84,15 +87,63 @@ publicWidget.registry.BcSportMatch = publicWidget.Widget.extend({
      * @param {Event} ev
      */
     async onChangeScore(ev) {
-        ev.preventDefault();
-        console.log("onChangeScore", ev);
+        // console.log("onChangeScore", ev);
 
-        if (ev.type === "keypress" && ev.key !== "Enter") {
-            // Set the value to the key pressed if it's a number
-            if (isNaN(ev.key)) {
-                return;
+        if (ev.type === "click") {
+            ev.preventDefault();
+        } else if (ev.type === "keypress") {
+            console.log("key", ev.key);
+        }
+
+        console.log(this.$("input.score-player-1.score-center").val());
+
+        if (
+            this.player1Select.find(":selected").val() === "False" ||
+            this.player2Select.find(":selected").val() === "False"
+        ) {
+            // TODO: Modal to display the error
+            alert("Please select two players before changing the score");
+            return;
+        }
+
+        this.changeScore(ev);
+
+        if (
+            this.$("input.score-player-1.score-center").val() != "0" ||
+            this.$("input.score-player-2.score-center").val() != "0"
+        ) {
+            // Disable the select
+            console.log("Disable the select");
+
+            this.player1Select.attr("disabled", true);
+            this.player2Select.attr("disabled", true);
+        } else {
+            console.log("Enable the select");
+
+            this.player1Select.attr("disabled", false);
+            this.player2Select.attr("disabled", false);
+        }
+    },
+
+    /**
+     *
+     * @param {Event} ev
+     */
+    async changeScore(ev) {
+        console.log("changeScore", ev);
+
+        const $input = ev.target.classList.contains("player-1")
+            ? this.$("input.score-player-1.score-center")
+            : this.$("input.score-player-2.score-center");
+
+        console.log("input", $input);
+
+        if (ev.type === "click") {
+            if (ev.target.classList.contains("minus")) {
+                // If the input value is 0, then we don't want to go below 0
+                $input.val(Math.max(0, parseInt($input.val()) - 1));
             } else {
-                ev.target.value += ev.key;
+                $input.val(parseInt($input.val()) + 1);
             }
         }
     },
